@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@layer base {
+  button {
+    @apply cursor-pointer duration-100 ease-in-out;
+  }
+}
+
+@theme {
+  --color-primary: #1DA1F2;
+  --color-dark: #0f1419;
+  --color-dark-disabled:#87898c;
+  --color-dark-hover: rgb(39,44,48);
+}
