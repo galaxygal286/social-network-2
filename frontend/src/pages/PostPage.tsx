@@ -11,7 +11,7 @@ import Comment from '../components/Comment'
 
 const PostPage = () => {
     const { postId } = useParams<{ postId: string }>();
-    const { currentPost, getPost, comments,fetchComments } = usePostStore()
+    const { currentPost, getPost, comments,fetchComments,clearComments,clearCurrentPost } = usePostStore()
     const navigate = useNavigate()
 
     const getProfileImage = () => {
@@ -28,6 +28,7 @@ const PostPage = () => {
     useEffect(() => {
         getPost(Number(postId))
         fetchComments(Number(postId))
+        return ()=>{clearComments();clearCurrentPost()}
     }, [])
 
     return <>

@@ -28,7 +28,7 @@ router.get(
   PostController.fetchPosts
 )
 
-router.get('/:postId',
+router.get('/get/:postId',
   PostValidator.getPost,
   ValidateRequest,
   PostController.getPost
@@ -48,7 +48,7 @@ router.post(
   PostController.unlikePost
 )
 router.get(
-  '/commentsx',
+  '/comments',
   PostValidator.fetchComments,
   ValidateRequest,
   PostController.fetchComments

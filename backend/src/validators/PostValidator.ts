@@ -48,7 +48,7 @@ const PostValidator = {
                 errorMessage: "Post id is required"
             },
             isInt: {
-                errorMessage: "Post id must be a number"
+                errorMessage: "Postr id must be a number"
             }
         },
     }),
@@ -58,7 +58,7 @@ const PostValidator = {
                 errorMessage: "Post id is required"
             },
             isInt: {
-                errorMessage: "Post id must be a number"
+                errorMessage: "Postx id must be a number"
             }
         },
     }),

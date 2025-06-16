@@ -15,6 +15,8 @@ const CreatePost = () => {
 
     const [postImagePreviewUrl, setPostImagePreviewUrl] = useState<string | null>(null);
 
+    const textRef = useRef<HTMLDivElement | null>(null);
+
     const handleTextChange = (text: string) => {
         setText(text)
     }
@@ -29,6 +31,7 @@ const CreatePost = () => {
 
     const clearForm = () => {
         setText('')
+        if (textRef.current) textRef.current.innerText = '';
         handleRemoveImage()
     }
 
@@ -71,7 +74,7 @@ const CreatePost = () => {
             </div>
             <div className="flex-grow-1 px-4">
                 <div className="py-3">
-                    <RichTextInput onTextChange={handleTextChange} />
+                    <RichTextInput ref={textRef} onTextChange={handleTextChange} />
                 </div>
                 {postImagePreviewUrl && <div className="relative">
                     <button onClick={handleRemoveImage} className="text-white p-2 rounded-full bg-black/50 absolute right-2 top-2">

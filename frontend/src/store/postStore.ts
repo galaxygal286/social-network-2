@@ -15,6 +15,7 @@ interface PostStore {
   getPost: (postId: number) => Promise<void>
   likePost: (post_id: number) => Promise<void>
   unlikePost: (post_id: number) => Promise<void>
+  clearCurrentPost: () => void;
 
   fetchComments: (post_id: number) => Promise<void>;
   createComment: (post_id: number, text: string) => Promise<void>;
@@ -112,6 +113,10 @@ const usePostStore = create<PostStore>((set) => ({
     }
   },
 
+  clearCurrentPost:()=>{
+    set({currentPost:null})
+  },
+
   fetchComments: async (post_id) => {
     try {
       const comments=await postService.fetchComments(post_id);
@@ -123,13 +128,17 @@ const usePostStore = create<PostStore>((set) => ({
     }
   },
   createComment: async (post_id,text) => {
+    const { showLoading, hideLoading } = useLoadingStore.getState();
     try {
+      showLoading()
       const comment = await postService.createComment(post_id,text);
       set((state)=>({
         comments:[comment].concat(state.comments)
       }))
     } catch (error: any) {
       alert(error.response?.data?.message || 'Failed to fetch comments')
+    }finally{
+      hideLoading()
     }
   },
   // deleteComment: async (post_id) => {

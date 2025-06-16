@@ -31,7 +31,7 @@ const userService = {
     return res.data
   },
   getPost: async (postId: number): Promise<Post> => {
-    const res = await api.get<Post>(`/posts/${postId}`)
+    const res = await api.get<Post>(`/posts/get/${postId}`)
     return res.data
   },
   likePost: async (post_id: number): Promise<void> => {
@@ -41,7 +41,7 @@ const userService = {
     await api.post(`/posts/unlike?post_id=${post_id}`)
   },
   fetchComments: async (post_id: number): Promise<Comment[]> => {
-    const res = await api.get(`/posts/commentsx?post_id=${post_id}`)
+    const res = await api.get(`/posts/comments?post_id=${post_id}`)
     return res.data
   },
   createComment: async (post_id: number, text: string): Promise<Comment> => {

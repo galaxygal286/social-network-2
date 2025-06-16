@@ -4,26 +4,28 @@ import { useRef, useState } from "react"
 import usePostStore from "../store/postStore"
 import useAuthStore from "../store/authStore"
 
-interface Props{
-    post_id:number
+interface Props {
+    post_id: number
 }
 
-const CreateComment = ({post_id}:Props) => {
+const CreateComment = ({ post_id }: Props) => {
     const { user } = useAuthStore()
     const { createComment } = usePostStore()
     const [text, setText] = useState('')
+    const textRef = useRef<HTMLDivElement | null>(null);
 
     const handleTextChange = (text: string) => {
         setText(text)
     }
 
-    const handleCreatePost = async () => {
-        await createComment(post_id,text)
+    const handleCreateComment = async () => {
+        await createComment(post_id, text)
         clearForm()
     }
 
     const clearForm = () => {
         setText('')
+        if (textRef.current) textRef.current.innerText = '';
     }
 
     const getProfileImage = () => {
@@ -40,10 +42,10 @@ const CreateComment = ({post_id}:Props) => {
             </div>
             <div className="flex-grow-1 px-4">
                 <div className="py-3">
-                    <RichTextInput placeholder="Post your reply" onTextChange={handleTextChange} />
+                    <RichTextInput ref={textRef} placeholder="Post your reply" onTextChange={handleTextChange} />
                 </div>
                 <div className="flex justify-end items-center border-gray-100  py-3">
-                    <button onClick={handleCreatePost} disabled={text.length === 0} className="text-center rounded-full bg-dark px-4.5 py-1.5 font-semibold text-white shadow-xs hover:bg-dark-hover cursor-pointer disabled:bg-dark-disabled">Post</button>
+                    <button onClick={handleCreateComment} disabled={text.length === 0} className="text-center rounded-full bg-dark px-4.5 py-1.5 font-semibold text-white shadow-xs hover:bg-dark-hover cursor-pointer disabled:bg-dark-disabled">Reply</button>
                 </div>
             </div>
         </div>
