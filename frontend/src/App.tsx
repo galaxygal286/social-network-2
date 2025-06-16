@@ -10,6 +10,7 @@ import RegisterPage from "./pages/RegisterPage.tsx";
 import ProtectedRoute from './components/ProtectedRoute.tsx';
 import AuthRedirect from './components/AuthRedirect.tsx';
 import ProfilePage from './pages/ProfilePage.tsx';
+import PostPage from "./pages/PostPage.tsx";
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,12 @@ const router = createBrowserRouter([
       path: "/profile",
       element:<ProtectedRoute>
         <ProfilePage/>
+      </ProtectedRoute>
+    },
+    {
+      path: "/post/:postId",
+      element:<ProtectedRoute>
+        <PostPage/>
       </ProtectedRoute>
     },
   ]);

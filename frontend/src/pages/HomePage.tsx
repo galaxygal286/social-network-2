@@ -6,6 +6,7 @@ import Post from "../components/Post"
 import usePostStore from '../store/postStore'
 import { useEffect } from 'react'
 import Spinner from '../components/Spinner'
+import { Post as IPost } from '../types'
 
 const HomePage=()=>{
     const { posts,fetchPosts } = usePostStore();
@@ -14,7 +15,7 @@ const HomePage=()=>{
     },[])
     return <>
         <Layout>
-        <TabGroup>
+        {/* <TabGroup>
             <TabList className='flex'>
                 <Tab className='outline-none flex-1'>
                 {({ hover,selected }) => (
@@ -38,24 +39,22 @@ const HomePage=()=>{
                 </Tab>
             </TabList>
             <TabPanels className='pt-2'>
-                <TabPanel>
-                    <div>
+                <TabPanel> */}
+                    <div className='pt-8'>
                         <CreatePost/>
                     </div>
                     <div >
-                        {posts.map((post:any)=><>
-                            <Post data={post}/>
-                        </>)}
+                        {posts.map((post:IPost)=><Post key={post.id} data={post}/>)}
                     </div>
                     {posts.length===0&&<>
                         <div className='flex items-center justify-center pt-5'>
                             <div className="w-16 h-16 border-4 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
                         </div>
                     </>}
-                </TabPanel>
+                {/* </TabPanel>
                 <TabPanel></TabPanel>
             </TabPanels>
-            </TabGroup>
+            </TabGroup> */}
         </Layout>
     </>
 }

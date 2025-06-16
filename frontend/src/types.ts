@@ -55,3 +55,13 @@ export interface Post {
   comments_count: number
   post_image: string
 }
+
+export interface Comment {
+  id: number;
+  user_id: number;
+  post_id: number;
+  text: string;
+  created_at: string;
+  user_name?: string;
+  profile_image_url?: string;
+}

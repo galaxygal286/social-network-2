@@ -60,10 +60,35 @@ const PostController = {
 
         await PostService.unlikePost(_post_id, user_id);
         res.send("ok")
+    }),
+    getPost: asyncHandler(async (req: Request, res: Response) => {
+        const userId = (req as CustomRequest).userId
+        const postId=Number(req.params.postId)
+        const post = await PostService.getPostById(postId, userId)
+        res.json(post)
+    }),
+
+fetchComments: asyncHandler(async (req: Request, res: Response) => {
+        const userId = (req as CustomRequest).userId
+        const post_id=Number(req.query.post_id)
+        const post = await PostService.getPostById(post_id,userId);
+        if (!post) {
+            throw new ErrorResponse(404, "Post not found")
+        }
+        const comments = await PostService.fetchComments(post_id)
+        res.json(comments)
+    }),
+    createComment:asyncHandler(async (req:Request,res:Response)=>{
+        const userId = (req as CustomRequest).userId
+        const post_id=Number(req.body.post_id)
+        const text=req.body.text
+         const post = await PostService.getPostById(post_id,userId);
+        if (!post) {
+            throw new ErrorResponse(404, "Post not found")
+        }
+        const comment=await PostService.createComment(post_id,userId,text)
+        res.json(comment)
     })
-
-
-
 }
 
 export default PostController

@@ -10,15 +10,15 @@ const PostValidator = {
             }
         },
     }),
-    fetchPosts:checkSchema({
-        page:{
-            isNumeric:{
-                errorMessage:"Page must be a number"
+    fetchPosts: checkSchema({
+        page: {
+            isInt: {
+                errorMessage: "Page must be a number"
             }
         },
-        limit:{
-            isNumeric:{
-                errorMessage:"Limit must be a number"
+        limit: {
+            isInt: {
+                errorMessage: "Limit must be a number"
             }
         }
     }),
@@ -26,6 +26,9 @@ const PostValidator = {
         post_id: {
             notEmpty: {
                 errorMessage: "Post id is required"
+            },
+            isInt: {
+                errorMessage: "Post id must be a number"
             }
         },
     }),
@@ -33,8 +36,46 @@ const PostValidator = {
         post_id: {
             notEmpty: {
                 errorMessage: "Post id is required"
+            },
+            isInt: {
+                errorMessage: "Post id must be a number"
             }
         },
+    }),
+    getPost: checkSchema({
+        postId: {
+            notEmpty: {
+                errorMessage: "Post id is required"
+            },
+            isInt: {
+                errorMessage: "Post id must be a number"
+            }
+        },
+    }),
+    fetchComments: checkSchema({
+        post_id: {
+            notEmpty: {
+                errorMessage: "Post id is required"
+            },
+            isInt: {
+                errorMessage: "Post id must be a number"
+            }
+        },
+    }),
+    createComment: checkSchema({
+        post_id: {
+            notEmpty: {
+                errorMessage: "Post id is required"
+            },
+            isInt: {
+                errorMessage: "Post id must be a number"
+            }
+        },
+        text:{
+            notEmpty: {
+                errorMessage: "Text is required"
+            }
+        }
     }),
 }
 

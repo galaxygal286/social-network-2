@@ -3,6 +3,7 @@ import { Post as IPost } from "../types"
 import { formatDistanceToNow } from "date-fns"
 import useAuthStore from "../store/authStore"
 import LikeButton from "./LikeButton"
+import { useNavigate } from "react-router"
 interface Props {
     data: IPost
 }
@@ -10,10 +11,11 @@ interface Props {
 
 const Post = ({ data }: Props) => {
     const { user } = useAuthStore()
+    const navigate=useNavigate()
    
     const getProfileImage = () => {
-        if (user?.profile_image_url)
-            return import.meta.env.VITE_UPLOADS + "/" + user?.profile_image_url
+        if (data?.profile_image_url)
+            return import.meta.env.VITE_UPLOADS + "/" + data?.profile_image_url
     }
 
     const getPostImage=()=>{
@@ -24,7 +26,7 @@ const Post = ({ data }: Props) => {
 
    
     return <>
-        <div className="flex border-b-1 border-gray-100 px-7 py-4 cursor-pointer hover:bg-gray-50 duration-100 ease-in-out">
+        <div onClick={()=>navigate("/post/"+data.id)} className="flex border-b-1 border-gray-100 px-7 py-4 cursor-pointer hover:bg-gray-50 duration-100 ease-in-out">
             <div>
                 <div className="relative w-10 h-10 rounded-full overflow-hidden">
                     <img className="absolute top-0 left-0 right-0 bottom-0 w-full h-full object-cover" src={getProfileImage() || "/default_profile.png"} alt="profile image" />

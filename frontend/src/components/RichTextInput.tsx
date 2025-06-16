@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 
 interface RichTextInputProps {
-    onTextChange: (text: string) => void;
+    placeholder?:string
+    onTextChange: (text: string) => void
   }
 
-const RichTextInput:React.FC<RichTextInputProps>=({onTextChange})=>{
+const RichTextInput:React.FC<RichTextInputProps>=({placeholder,onTextChange})=>{
     const [isEmpty, setIsEmpty] = useState(true);
 
 
@@ -16,7 +17,7 @@ const RichTextInput:React.FC<RichTextInputProps>=({onTextChange})=>{
 
     return <>
         <div className="min-h-[24px] max-h-[720px] overflow-x-hidden overflow-y-auto relative">
-            {isEmpty&&<div className="absolute pointer-events-none text-gray-500 select-none text-xl">What's happening?</div>}
+            {isEmpty&&<div className="absolute pointer-events-none text-gray-500 select-none text-xl">{placeholder ? placeholder : "What's happening?"}</div>}
             <div
                 onInput={handleInput}
                 contentEditable="true"

@@ -28,6 +28,12 @@ router.get(
   PostController.fetchPosts
 )
 
+router.get('/:postId',
+  PostValidator.getPost,
+  ValidateRequest,
+  PostController.getPost
+);
+
 router.post(
   '/like',
   PostValidator.likePost,
@@ -40,6 +46,18 @@ router.post(
   PostValidator.unlikePost,
   ValidateRequest,
   PostController.unlikePost
+)
+router.get(
+  '/commentsx',
+  PostValidator.fetchComments,
+  ValidateRequest,
+  PostController.fetchComments
+)
+router.post(
+  '/comments',
+  PostValidator.createComment,
+  ValidateRequest,
+  PostController.createComment
 )
 
 export default router

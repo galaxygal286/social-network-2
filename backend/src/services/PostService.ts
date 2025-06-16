@@ -67,6 +67,30 @@ class PostService {
     );
   }
 
+  async fetchComments(post_id:number): Promise<Comment[]> {
+    const comments = await pool.query(
+      `SELECT c.*, u.name as user_name, u.profile_image_url
+       FROM comments c
+       JOIN users u ON c.user_id = u.id
+       WHERE c.post_id = $1
+       ORDER BY c.created_at DESC`,
+      [post_id]
+    );
+
+    return comments.rows
+
+  }
+
+  async createComment(post_id:number,user_id:number,text:string):Promise<Comment>{
+    const comment=await pool.query(
+      `INSERT INTO comments (post_id, user_id, text)
+       VALUES ($1, $2, $3)
+       RETURNING *`,
+      [post_id,user_id,text]
+    )
+    return comment.rows[0]
+  }
+
 }
 
 export default new PostService()
